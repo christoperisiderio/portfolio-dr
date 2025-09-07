@@ -65,7 +65,6 @@ h2{
 
 .main-top{
     display: flex;
-    min-width: 100dvw;
     height: 25dvh;
     position: relative;   /* added */
     overflow: hidden;     /* added to avoid scrollbars from video */
@@ -360,6 +359,130 @@ h2{
 }
 
 /* THIRD SECTION */
+.third-section{
+    height: 100dvh;
+    background-color: black;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+}
 
+.third-section .center-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    width: 50dvw;
+    height: 70%;
+}
+
+.third-section .techstack-logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 30%;
+    gap: 5px;
+}
+
+.techstack-logo .logos{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    background-color: #F0F0F0;
+    padding: 10px;
+}
+
+.techstack-logo .logos .batch1, .batch2{
+    display: flex;
+    gap: 5px;
+}
+
+.logos img{
+    height: 40px;
+}
+
+.third-section .center-text h1{
+    font-size: 100px;
+}
+
+.third-section .center-text p{
+    font-size: 10px;
+    text-align: center;
+}
+
+.third-section .left-img{
+    position: absolute;
+    left: 0;
+    top: -100px;
+}
+.third-section .right-img{
+    position: absolute;
+    right: 0;
+    top: -100px;
+}
+
+/* third-section: scroll-in-from-left animation */
+.third-section .center-text,
+.third-section .techstack-logo,
+.third-section .left-img,
+.third-section .right-img {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: transform .8s cubic-bezier(.2,.8,.2,1) var(--delay, 0s),
+              opacity  .8s                               var(--delay, 0s);
+  will-change: transform, opacity;
+}
+
+/* when the section is in view, remove transform and fade in with stagger */
+.third-section.in-view .center-text   { --delay: 0.08s; opacity: 1; transform: none; }
+.third-section.in-view .techstack-logo { --delay: 0.24s; opacity: 1; transform: none; }
+.third-section.in-view .left-img       { --delay: 0.40s; opacity: 1; transform: none; }
+.third-section.in-view .right-img      { --delay: 0.56s; opacity: 1; transform: none; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .third-section .center-text,
+  .third-section .techstack-logo,
+  .third-section .left-img,
+  .third-section .right-img {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* subtle grid overlay (30% opacity) */
+.third-section::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  /* two perpendicular 1px lines to form a grid; adjust background-size for spacing */
+  background-image:
+    linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px);
+  background-size: 35px 35px; /* change to control grid cell size */
+  opacity: 0.2;               /* requested 30% opacity */
+     /* optional: helps the grid blend with underlying content */
+}
+
+/* ensure section children render above the grid */
+.third-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Respect reduced motion / accessibility (no change but kept consistent) */
+@media (prefers-reduced-motion: reduce) {
+  .third-section::before {
+    transition: none;
+  }
+}
 
 /* THIRD SECTION CLOSE */
+
